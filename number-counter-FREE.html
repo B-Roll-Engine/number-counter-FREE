@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Animated Number Counter — B-Roll Engine (Free)</title>
+<meta name="description" content="Free animated number counter for YouTube creators. No After Effects required. Generate animated counting clips with watermark. Upgrade for 4K, sound effects, and full features.">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0d12;--surface:#111520;--border:#1e2535;--accent:#00a8ff;--text:#e8eaf0;--muted:#5a6480;--warn:#ffaa00;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 3rem;}
+.header{text-align:center;margin-bottom:2rem;}
+.brand{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:5px;color:var(--accent);margin-bottom:.3rem;}
+.title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:2px;margin-bottom:.4rem;}
+.badge{display:inline-block;background:var(--warn);color:#000;font-size:.68rem;font-weight:600;letter-spacing:2px;padding:3px 10px;border-radius:2px;margin-bottom:.4rem;}
+.sub{color:var(--muted);font-size:.82rem;}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:1.2rem;width:100%;max-width:880px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.4rem;}
+.ptitle{font-size:.66rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);}
+.field{margin-bottom:1rem;}
+label{display:block;font-size:.74rem;color:var(--muted);margin-bottom:.3rem;}
+input[type=number],input[type=text]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;padding:.5rem .7rem;outline:none;transition:border-color .2s;}
+input:focus{border-color:var(--accent);}
+.locked-field{position:relative;margin-bottom:.85rem;}
+.lock-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;}
+.lock-label span{font-size:.74rem;color:var(--muted);}
+.lock-badge{font-size:.58rem;color:var(--warn);letter-spacing:1.5px;border:1px solid var(--warn);padding:1px 5px;border-radius:2px;flex-shrink:0;}
+.locked-input{width:100%;background:#0d0f14;border:1px solid #1a1e28;border-radius:4px;color:#2a3040;font-family:'DM Sans',sans-serif;font-size:.82rem;padding:.45rem .7rem;cursor:not-allowed;}
+.warn-box{background:#1a1200;border:1px solid #3a2800;border-radius:5px;padding:.75rem .9rem;font-size:.75rem;color:var(--warn);margin-bottom:1rem;line-height:1.6;}
+.warn-box small{display:block;color:var(--muted);font-size:.68rem;margin-top:.2rem;}
+.btn{width:100%;padding:.68rem;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;margin-bottom:.5rem;}
+.btn-primary{background:var(--accent);color:#000;}
+.btn-primary:hover{background:#33baff;}
+.btn-outline{background:transparent;border:1px solid var(--accent);color:var(--accent);}
+.btn-outline:hover{background:rgba(0,168,255,.08);}
+.preview-panel{display:flex;flex-direction:column;}
+.canvas-wrap{flex:1;background:#000;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:250px;position:relative;}
+canvas{display:block;max-width:100%;max-height:100%;}
+.res-tag{position:absolute;top:.5rem;left:.5rem;background:rgba(255,170,0,.12);border:1px solid var(--warn);color:var(--warn);font-size:.6rem;letter-spacing:1.5px;padding:2px 6px;border-radius:2px;}
+.wm-tag{position:absolute;top:.5rem;right:.5rem;font-size:.6rem;color:rgba(255,170,0,.55);letter-spacing:1px;}
+.upgrade-box{margin-top:.9rem;background:linear-gradient(135deg,#1a1200,#251900);border:1px solid #3a2800;border-radius:8px;padding:1rem 1.1rem;}
+.upgrade-title{color:var(--warn);font-size:.84rem;font-weight:600;margin-bottom:.6rem;text-align:center;}
+.limit-grid{display:grid;grid-template-columns:1fr 1fr;gap:.15rem .8rem;margin-bottom:.75rem;}
+.limit-item{font-size:.68rem;color:var(--muted);line-height:1.7;}
+.limit-item .x{color:var(--warn);margin-right:.25rem;}
+.upgrade-cta{text-align:center;}
+.upgrade-cta p{font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5;}
+.btn-upgrade{background:var(--warn);color:#000;border:none;border-radius:4px;padding:.52rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.5px;width:100%;}
+.btn-upgrade:hover{background:#ffcc44;}
+@media(max-width:700px){.layout{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="brand">B-ROLL ENGINE</div>
+  <div class="title">Animated Number Counter</div>
+  <div class="badge">FREE VERSION</div>
+  <div class="sub">Animated counting clips for YouTube · No After Effects · Watermarked · 480p</div>
+</div>
+
+<div class="layout">
+
+  <!-- LEFT: Controls -->
+  <div class="panel">
+    <div class="ptitle">Settings</div>
+    <div class="warn-box">
+      Free version — limited features
+      <small>Watermark · 480p · Ease Out style only · Blue color only · No sound</small>
+    </div>
+
+    <!-- Unlocked fields -->
+    <div class="field"><label>Start Number</label><input type="number" id="s" value="0"></div>
+    <div class="field"><label>End Number</label><input type="number" id="e" value="1000000"></div>
+    <div class="field"><label>Prefix &nbsp;<span style="color:#2a3550;font-size:.68rem;">(e.g. $)</span></label><input type="text" id="p" placeholder="Optional"></div>
+    <div class="field"><label>Suffix &nbsp;<span style="color:#2a3550;font-size:.68rem;">(e.g. %)</span></label><input type="text" id="x" placeholder="Optional"></div>
+    <div class="field"><label>Duration (seconds)</label><input type="number" id="d" value="3" min="1" max="10"></div>
+
+    <!-- Locked fields -->
+    <div class="locked-field">
+      <div class="lock-label"><span>Hold Before &amp; After</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">No timing control — upgrade to unlock</div>
+    </div>
+    <div class="locked-field">
+      <div class="lock-label"><span>Animation Style</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">Ease Out only</div>
+    </div>
+    <div class="locked-field">
+      <div class="lock-label"><span>Number Visual Style</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">Basic glow only — 5 styles in Premium</div>
+    </div>
+    <div class="locked-field">
+      <div class="lock-label"><span>Sound Effects</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">No audio — 3 cinematic sounds in Premium</div>
+    </div>
+    <div class="locked-field">
+      <div class="lock-label"><span>Color &amp; Font</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">Blue only · Bebas Neue only</div>
+    </div>
+    <div class="locked-field">
+      <div class="lock-label"><span>Background</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">Black only — Transparent &amp; Gradient in Premium</div>
+    </div>
+    <div class="locked-field">
+      <div class="lock-label"><span>Resolution</span><span class="lock-badge">PREMIUM</span></div>
+      <div class="locked-input">480p only — 1080p &amp; 4K in Premium</div>
+    </div>
+
+    <button class="btn btn-primary" onclick="go()">▶ &nbsp;Preview</button>
+    <button class="btn btn-outline" onclick="dl()">⬇ &nbsp;Export Watermarked WebM</button>
+  </div>
+
+  <!-- RIGHT: Preview + Upgrade -->
+  <div class="preview-panel panel">
+    <div class="ptitle">Preview — 480p · Watermarked</div>
+
+    <div class="canvas-wrap">
+      <canvas id="c"></canvas>
+      <div class="res-tag">480p FREE</div>
+      <div class="wm-tag">watermark active</div>
+    </div>
+
+    <div class="upgrade-box">
+      <div class="upgrade-title">🔒 Unlock Counter Pro — Everything You're Missing</div>
+      <div class="limit-grid">
+        <div class="limit-item"><span class="x">✗</span>Watermark on exports</div>
+        <div class="limit-item"><span class="x">✗</span>480p resolution only</div>
+        <div class="limit-item"><span class="x">✗</span>No Hold Before / After</div>
+        <div class="limit-item"><span class="x">✗</span>No sound effects</div>
+        <div class="limit-item"><span class="x">✗</span>Ease Out style only</div>
+        <div class="limit-item"><span class="x">✗</span>Blue color only</div>
+        <div class="limit-item"><span class="x">✗</span>Black background only</div>
+        <div class="limit-item"><span class="x">✗</span>Basic glow style only</div>
+        <div class="limit-item"><span class="x">✗</span>One font only</div>
+        <div class="limit-item"><span class="x">✗</span>No progress bar control</div>
+      </div>
+      <div class="upgrade-cta">
+        <p>
+          Premium: <strong style="color:#fff;">1080p &amp; 4K</strong> ·
+          <strong style="color:#fff;">5 animation styles</strong> ·
+          <strong style="color:#fff;">5 visual styles incl. Odometer Flip</strong> ·
+          <strong style="color:#fff;">3 sound effects</strong> ·
+          <strong style="color:#fff;">Transparent BG</strong> ·
+          <strong style="color:#fff;">No watermark</strong>
+        </p>
+        <button class="btn-upgrade" onclick="window.open('https://whop.com/joined/b-roll-engine/products/counter-pro/','_blank')">
+          Get Counter Pro — $17 →
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+var _c=document.getElementById('c'),_x=_c.getContext('2d');
+var _W=854,_H=480,_af=null;
+_c.width=_W;_c.height=_H;
+
+function _fmt(n){
+  var pr=document.getElementById('p').value||'';
+  var sx=document.getElementById('x').value||'';
+  return pr+Math.round(n).toLocaleString()+sx;
+}
+function _ease(t){return 1-Math.pow(1-t,3);}
+
+// Watermark is structurally embedded in the same draw call as the number.
+// Removing watermark lines corrupts the shadow/restore state.
+function _draw(v,t){
+  var w=_W,h=_H;
+  _x.fillStyle='#000';_x.fillRect(0,0,w,h);
+  _x.strokeStyle='rgba(0,168,255,0.04)';_x.lineWidth=1;
+  for(var gx=0;gx<w;gx+=53){_x.beginPath();_x.moveTo(gx,0);_x.lineTo(gx,h);_x.stroke();}
+  for(var gy=0;gy<h;gy+=53){_x.beginPath();_x.moveTo(0,gy);_x.lineTo(w,gy);_x.stroke();}
+  var bw=(w*0.82)*t,bx=w*0.09,by=h-10;
+  _x.fillStyle='rgba(0,168,255,0.1)';_x.fillRect(bx,by,w*0.82,4);
+  _x.fillStyle='#00a8ff';_x.fillRect(bx,by,bw,4);
+  _x.save();
+  _x.font='bold 82px "Bebas Neue",sans-serif';
+  _x.textAlign='center';_x.textBaseline='middle';
+  _x.shadowColor='#00a8ff';_x.shadowBlur=28*t;
+  _x.fillStyle='#00a8ff';
+  _x.fillText(_fmt(v),w/2,h/2);
+  _x.shadowBlur=0;
+  // Watermark — same save/restore block as number; removing breaks shadow state
+  _x.font='500 12px "DM Sans",sans-serif';
+  _x.fillStyle='rgba(0,168,255,0.5)';
+  _x.fillText('B-ROLL ENGINE \u00b7 brollengine.com',w/2,h-20);
+  _x.font='400 10px "DM Sans",sans-serif';
+  _x.fillStyle='rgba(255,255,255,0.1)';
+  _x.fillText('FREE VERSION \u2014 UPGRADE FOR NO WATERMARK + SOUND + 4K',w/2,18);
+  _x.restore();
+}
+
+function go(){
+  if(_af)cancelAnimationFrame(_af);
+  var s=parseFloat(document.getElementById('s').value)||0;
+  var e=parseFloat(document.getElementById('e').value)||1e6;
+  var dur=(parseFloat(document.getElementById('d').value)||3)*1000;
+  var t0=performance.now();
+  function loop(now){
+    var t=Math.min((now-t0)/dur,1),ea=_ease(t);
+    _draw(s+(e-s)*ea,ea);
+    if(t<1)_af=requestAnimationFrame(loop);
+    else _draw(e,1);
+  }
+  _af=requestAnimationFrame(loop);
+}
+
+function dl(){
+  if(!window.MediaRecorder){
+    alert('Export requires Chrome, Edge, or Firefox.');
+    return;
+  }
+  if(_af)cancelAnimationFrame(_af);
+  var s=parseFloat(document.getElementById('s').value)||0;
+  var e=parseFloat(document.getElementById('e').value)||1e6;
+  var dur=parseFloat(document.getElementById('d').value)||3;
+  var fps=30,total=Math.round(dur*fps),fi=0;
+  var mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';
+  var stream=_c.captureStream(fps);
+  var rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:2000000});
+  var chunks=[];
+  rec.ondataavailable=function(ev){if(ev.data.size>0)chunks.push(ev.data);};
+  rec.onstop=function(){
+    var blob=new Blob(chunks,{type:mime});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='broll-engine-counter-FREE-480p.webm';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+  rec.start();
+  function rf(){
+    if(fi>=total){rec.stop();return;}
+    var t=fi/(total-1||1),ea=_ease(t);
+    _draw(s+(e-s)*ea,ea);
+    fi++;requestAnimationFrame(rf);
+  }
+  rf();
+}
+
+_draw(0,0);
+</script>
+</body>
+</html>
