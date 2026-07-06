@@ -3,245 +3,632 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Animated Number Counter — B-Roll Engine (Free)</title>
-<meta name="description" content="Free animated number counter for YouTube creators. No After Effects required. Generate animated counting clips with watermark. Upgrade for 4K, sound effects, and full features.">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Animated Number Counter — B-Roll Engine Free</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0d12;--surface:#111520;--border:#1e2535;--accent:#00a8ff;--text:#e8eaf0;--muted:#5a6480;--warn:#ffaa00;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 3rem;}
-.header{text-align:center;margin-bottom:2rem;}
-.brand{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:5px;color:var(--accent);margin-bottom:.3rem;}
-.title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:2px;margin-bottom:.4rem;}
-.badge{display:inline-block;background:var(--warn);color:#000;font-size:.68rem;font-weight:600;letter-spacing:2px;padding:3px 10px;border-radius:2px;margin-bottom:.4rem;}
-.sub{color:var(--muted);font-size:.82rem;}
-.layout{display:grid;grid-template-columns:320px 1fr;gap:1.2rem;width:100%;max-width:880px;}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.4rem;}
-.ptitle{font-size:.66rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);}
-.field{margin-bottom:1rem;}
-label{display:block;font-size:.74rem;color:var(--muted);margin-bottom:.3rem;}
-input[type=number],input[type=text]{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;padding:.5rem .7rem;outline:none;transition:border-color .2s;}
-input:focus{border-color:var(--accent);}
-.locked-field{position:relative;margin-bottom:.85rem;}
-.lock-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;}
-.lock-label span{font-size:.74rem;color:var(--muted);}
-.lock-badge{font-size:.58rem;color:var(--warn);letter-spacing:1.5px;border:1px solid var(--warn);padding:1px 5px;border-radius:2px;flex-shrink:0;}
-.locked-input{width:100%;background:#0d0f14;border:1px solid #1a1e28;border-radius:4px;color:#2a3040;font-family:'DM Sans',sans-serif;font-size:.82rem;padding:.45rem .7rem;cursor:not-allowed;}
-.warn-box{background:#1a1200;border:1px solid #3a2800;border-radius:5px;padding:.75rem .9rem;font-size:.75rem;color:var(--warn);margin-bottom:1rem;line-height:1.6;}
-.warn-box small{display:block;color:var(--muted);font-size:.68rem;margin-top:.2rem;}
-.btn{width:100%;padding:.68rem;border:none;border-radius:5px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;margin-bottom:.5rem;}
+:root{--bg:#07090e;--surface:#0d1018;--surface2:#111520;--border:#1a2030;--accent:#00a8ff;--gold:#c8a84b;--green:#00cc88;--text:#edf0f7;--muted:#46536e;--radius:7px;}
+body{background:radial-gradient(1200px 600px at 50% -10%,rgba(0,168,255,.06),transparent 60%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 4rem;}
+#app{width:100%;max-width:1180px;}
+.hdr{text-align:center;margin-bottom:2rem;}
+.hdr-brand{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:6px;color:var(--accent);margin-bottom:.35rem;}
+.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:2px;color:var(--text);margin-bottom:.45rem;}
+.hdr-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,204,136,.07);border:1px solid var(--green);color:var(--green);font-size:.68rem;font-weight:600;letter-spacing:2.5px;padding:4px 14px;border-radius:3px;margin-bottom:.4rem;}
+.hdr-sub{color:var(--muted);font-size:.82rem;line-height:1.6;}
+.layout{display:grid;grid-template-columns:400px 1fr;gap:1.4rem;width:100%;align-items:start;}
+@media(max-width:820px){.layout{grid-template-columns:1fr;}}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;}
+.panel-title{font-size:.62rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.sec{font-size:.62rem;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin:1.3rem 0 .75rem;display:flex;align-items:center;gap:.5rem;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+.field{margin-bottom:.95rem;}
+.field label{display:block;font-size:.72rem;color:var(--muted);margin-bottom:.3rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+input[type=number],input[type=text],select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;padding:.52rem .75rem;outline:none;transition:border-color .18s;appearance:none;}
+input:focus,select:focus{border-color:var(--accent);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2346536e'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .7rem center;padding-right:2rem;}
+select option{background:var(--surface2);}
+input[type=color]{width:100%;height:38px;padding:3px 5px;border:1px solid var(--border);border-radius:5px;background:var(--bg);cursor:pointer;outline:none;}
+input[type=range]{flex:1;accent-color:var(--accent);height:4px;cursor:pointer;}
+.range-row{display:flex;align-items:center;gap:.7rem;}
+.range-val{font-size:.75rem;color:var(--muted);min-width:36px;text-align:right;}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.2rem;}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:.72rem;padding:.35rem .72rem;cursor:pointer;transition:all .14s;user-select:none;}
+.chip:hover{border-color:var(--accent);color:var(--text);}
+.chip.on{border-color:var(--accent);color:var(--accent);background:rgba(0,168,255,.08);}
+.chip.on-g{border-color:var(--green);color:var(--green);background:rgba(0,204,136,.07);}
+/* locked (Pro) items — inert text, quietly dimmed, small gold tag */
+.chip.locked{opacity:.5;cursor:default;border:1px dashed var(--border);color:var(--muted);}
+.chip.locked:hover{border-color:var(--border);color:var(--muted);}
+.pro-tag{font-size:.55rem;font-weight:700;color:var(--gold);letter-spacing:1.2px;margin-left:.35rem;opacity:.85;}
+.locked-note{font-size:.71rem;color:var(--muted);line-height:1.7;opacity:.8;}
+.dir-ind{font-size:.72rem;font-weight:600;letter-spacing:1px;margin:-.4rem 0 .6rem;}
+.btn{width:100%;padding:.72rem;border:none;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .18s;letter-spacing:.3px;margin-bottom:.5rem;}
 .btn-primary{background:var(--accent);color:#000;}
-.btn-primary:hover{background:#33baff;}
+.btn-primary:hover{background:#29b8ff;transform:translateY(-1px);}
 .btn-outline{background:transparent;border:1px solid var(--accent);color:var(--accent);}
-.btn-outline:hover{background:rgba(0,168,255,.08);}
-.preview-panel{display:flex;flex-direction:column;}
-.canvas-wrap{flex:1;background:#000;border-radius:6px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:250px;position:relative;}
-canvas{display:block;max-width:100%;max-height:100%;}
-.res-tag{position:absolute;top:.5rem;left:.5rem;background:rgba(255,170,0,.12);border:1px solid var(--warn);color:var(--warn);font-size:.6rem;letter-spacing:1.5px;padding:2px 6px;border-radius:2px;}
-.wm-tag{position:absolute;top:.5rem;right:.5rem;font-size:.6rem;color:rgba(255,170,0,.55);letter-spacing:1px;}
-.upgrade-box{margin-top:.9rem;background:linear-gradient(135deg,#1a1200,#251900);border:1px solid #3a2800;border-radius:8px;padding:1rem 1.1rem;}
-.upgrade-title{color:var(--warn);font-size:.84rem;font-weight:600;margin-bottom:.6rem;text-align:center;}
-.limit-grid{display:grid;grid-template-columns:1fr 1fr;gap:.15rem .8rem;margin-bottom:.75rem;}
-.limit-item{font-size:.68rem;color:var(--muted);line-height:1.7;}
-.limit-item .x{color:var(--warn);margin-right:.25rem;}
-.upgrade-cta{text-align:center;}
-.upgrade-cta p{font-size:.72rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5;}
-.btn-upgrade{background:var(--warn);color:#000;border:none;border-radius:4px;padding:.52rem 1.2rem;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;letter-spacing:.5px;width:100%;}
-.btn-upgrade:hover{background:#ffcc44;}
-@media(max-width:700px){.layout{grid-template-columns:1fr;}}
+.btn-outline:hover{background:rgba(0,168,255,.09);}
+.btn-outline:disabled{opacity:.3;cursor:not-allowed;}
+.sound-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:1rem 1.1rem;margin-bottom:.95rem;}
+.sound-card-title{font-size:.66rem;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:.75rem;}
+.sound-or{display:flex;align-items:center;gap:.6rem;margin:.65rem 0 .5rem;}
+.sound-or span{font-size:.62rem;color:var(--muted);letter-spacing:1.5px;}
+.sound-or::before,.sound-or::after{content:'';flex:1;height:1px;background:var(--border);}
+.vol-row{display:flex;align-items:center;gap:.6rem;margin-top:.75rem;}
+.vol-row label{font-size:.72rem;color:var(--muted);min-width:52px;margin:0;}
+.preview-panel{display:flex;flex-direction:column;gap:.9rem;}
+.canvas-wrap{background:#000;border-radius:8px;overflow:hidden;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:280px;position:relative;}
+canvas{display:block;max-width:100%;max-height:440px;}
+.badge-nowm{position:absolute;top:.6rem;right:.6rem;background:rgba(0,204,136,.1);border:1px solid var(--green);color:var(--green);font-size:.6rem;letter-spacing:1.5px;padding:2px 8px;border-radius:3px;}
+.checker{background-image:linear-gradient(45deg,#1c1c1c 25%,transparent 25%),linear-gradient(-45deg,#1c1c1c 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#1c1c1c 75%),linear-gradient(-45deg,transparent 75%,#1c1c1c 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0;background-color:#111;}
+.exp-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.prog-wrap{display:none;margin-top:.5rem;}
+.prog-bg{background:var(--surface2);border-radius:4px;height:6px;overflow:hidden;margin-bottom:.35rem;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:4px;width:0%;transition:width .08s;}
+.prog-lbl{font-size:.7rem;color:var(--muted);text-align:center;}
+.tip{background:rgba(0,168,255,.05);border:1px solid rgba(0,168,255,.15);border-radius:5px;padding:.65rem .85rem;font-size:.72rem;color:var(--muted);line-height:1.7;}
+.tip strong{color:var(--accent);}
+/* Preset teaser — static text only */
+.presets{width:100%;margin-bottom:1.4rem;}
+.preset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.55rem;}
+.preset-card{background:var(--surface2);border:1px dashed var(--border);border-radius:999px;padding:.55rem .95rem;display:flex;align-items:center;justify-content:center;text-align:center;min-height:38px;opacity:.5;}
+.pc-name{font-size:.76rem;font-weight:600;color:var(--muted);line-height:1.2;letter-spacing:.2px;}
+/* Upgrade panel */
+.upgrade{margin-top:1.4rem;background:linear-gradient(180deg,rgba(200,168,75,.05),transparent 70%),var(--surface);border:1px solid rgba(200,168,75,.35);}
+.upgrade .panel-title{color:var(--gold);border-bottom-color:rgba(200,168,75,.2);}
+.up-list{font-size:.76rem;color:var(--muted);line-height:2;}
+.up-list strong{color:var(--text);font-weight:600;}
+.btn-gold{background:transparent;border:1px solid var(--gold);color:var(--gold);display:block;text-align:center;text-decoration:none;padding:.72rem;border-radius:6px;font-weight:600;font-size:.88rem;margin-top:.9rem;transition:all .18s;}
+.btn-gold:hover{background:rgba(200,168,75,.09);}
 </style>
 </head>
 <body>
+<div id="app">
+<div class="hdr">
+  <div class="hdr-brand">B-ROLL ENGINE</div>
+  <div class="hdr-title">Animated Number Counter</div>
+  <div class="hdr-badge">&#10003; FREE &mdash; NO WATERMARK</div>
+  <div class="hdr-sub">3 Number Styles &nbsp;&middot;&nbsp; Sound Baked Into Export &nbsp;&middot;&nbsp; Count Up &amp; Down &nbsp;&middot;&nbsp; Transparent Overlay &nbsp;&middot;&nbsp; 1080p MP4 &amp; WebM &nbsp;&middot;&nbsp; Free Forever</div>
+</div>
 
-<div class="header">
-  <div class="brand">B-ROLL ENGINE</div>
-  <div class="title">Animated Number Counter</div>
-  <div class="badge">FREE VERSION</div>
-  <div class="sub">Animated counting clips for YouTube · No After Effects · Watermarked · 480p</div>
+<!-- Preset library teaser: plain text only, no logic behind it -->
+<div class="panel presets">
+  <div class="panel-title"><span>&#9889; Preset Library &mdash; 30 one-click counters <span class="pro-tag">PRO</span></span><span style="color:var(--muted);font-weight:400;letter-spacing:1px;">available in the Pro version</span></div>
+  <div class="preset-grid">
+    <div class="preset-card"><span class="pc-name">Million Dollar Reveal</span></div>
+    <div class="preset-card"><span class="pc-name">Revenue Counter</span></div>
+    <div class="preset-card"><span class="pc-name">Net Worth Flex</span></div>
+    <div class="preset-card"><span class="pc-name">Monthly Profit</span></div>
+    <div class="preset-card"><span class="pc-name">Debt Crushed</span></div>
+    <div class="preset-card"><span class="pc-name">Subscriber Milestone</span></div>
+    <div class="preset-card"><span class="pc-name">Followers Surge</span></div>
+    <div class="preset-card"><span class="pc-name">Views Explosion</span></div>
+    <div class="preset-card"><span class="pc-name">Likes Skyrocket</span></div>
+    <div class="preset-card"><span class="pc-name">Downloads Ticker</span></div>
+    <div class="preset-card"><span class="pc-name">Calories Burned</span></div>
+    <div class="preset-card"><span class="pc-name">Steps Today</span></div>
+    <div class="preset-card"><span class="pc-name">Heart Rate</span></div>
+    <div class="preset-card"><span class="pc-name">Pushup Challenge</span></div>
+    <div class="preset-card"><span class="pc-name">Weight Loss Journey</span></div>
+    <div class="preset-card"><span class="pc-name">Rocket Launch</span></div>
+    <div class="preset-card"><span class="pc-name">New Year Countdown</span></div>
+    <div class="preset-card"><span class="pc-name">Time Remaining</span></div>
+    <div class="preset-card"><span class="pc-name">Battery Draining</span></div>
+    <div class="preset-card"><span class="pc-name">Sale Ends Soon</span></div>
+    <div class="preset-card"><span class="pc-name">Donation Goal</span></div>
+    <div class="preset-card"><span class="pc-name">Limited Spots Left</span></div>
+    <div class="preset-card"><span class="pc-name">Days Until Launch</span></div>
+    <div class="preset-card"><span class="pc-name">Goal Progress</span></div>
+    <div class="preset-card"><span class="pc-name">Waitlist Count</span></div>
+    <div class="preset-card"><span class="pc-name">Crypto Pump</span></div>
+    <div class="preset-card"><span class="pc-name">Top Speed</span></div>
+    <div class="preset-card"><span class="pc-name">Temperature Rising</span></div>
+    <div class="preset-card"><span class="pc-name">Year Progress</span></div>
+    <div class="preset-card"><span class="pc-name">High Score</span></div>
+  </div>
 </div>
 
 <div class="layout">
-
-  <!-- LEFT: Controls -->
   <div class="panel">
-    <div class="ptitle">Settings</div>
-    <div class="warn-box">
-      Free version — limited features
-      <small>Watermark · 480p · Ease Out style only · Blue color only · No sound</small>
+    <div class="panel-title">Counter Settings</div>
+    <div class="grid2">
+      <div class="field"><label>Start Number</label><input type="number" id="startNum" value="0"></div>
+      <div class="field"><label>End Number</label><input type="number" id="endNum" value="1000000"></div>
     </div>
-
-    <!-- Unlocked fields -->
-    <div class="field"><label>Start Number</label><input type="number" id="s" value="0"></div>
-    <div class="field"><label>End Number</label><input type="number" id="e" value="1000000"></div>
-    <div class="field"><label>Prefix &nbsp;<span style="color:#2a3550;font-size:.68rem;">(e.g. $)</span></label><input type="text" id="p" placeholder="Optional"></div>
-    <div class="field"><label>Suffix &nbsp;<span style="color:#2a3550;font-size:.68rem;">(e.g. %)</span></label><input type="text" id="x" placeholder="Optional"></div>
-    <div class="field"><label>Duration (seconds)</label><input type="number" id="d" value="3" min="1" max="10"></div>
-
-    <!-- Locked fields -->
-    <div class="locked-field">
-      <div class="lock-label"><span>Hold Before &amp; After</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">No timing control — upgrade to unlock</div>
+    <div class="dir-ind" id="dirInd">&#9650; Counting Up</div>
+    <div class="grid2">
+      <div class="field"><label>Prefix (e.g. $)</label><input type="text" id="prefix" placeholder="Optional"></div>
+      <div class="field"><label>Suffix (e.g. %)</label><input type="text" id="suffix" placeholder="Optional"></div>
     </div>
-    <div class="locked-field">
-      <div class="lock-label"><span>Animation Style</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">Ease Out only</div>
-    </div>
-    <div class="locked-field">
-      <div class="lock-label"><span>Number Visual Style</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">Basic glow only — 5 styles in Premium</div>
-    </div>
-    <div class="locked-field">
-      <div class="lock-label"><span>Sound Effects</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">No audio — 3 cinematic sounds in Premium</div>
-    </div>
-    <div class="locked-field">
-      <div class="lock-label"><span>Color &amp; Font</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">Blue only · Bebas Neue only</div>
-    </div>
-    <div class="locked-field">
-      <div class="lock-label"><span>Background</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">Black only — Transparent &amp; Gradient in Premium</div>
-    </div>
-    <div class="locked-field">
-      <div class="lock-label"><span>Resolution</span><span class="lock-badge">PREMIUM</span></div>
-      <div class="locked-input">480p only — 1080p &amp; 4K in Premium</div>
-    </div>
-
-    <button class="btn btn-primary" onclick="go()">▶ &nbsp;Preview</button>
-    <button class="btn btn-outline" onclick="dl()">⬇ &nbsp;Export Watermarked WebM</button>
-  </div>
-
-  <!-- RIGHT: Preview + Upgrade -->
-  <div class="preview-panel panel">
-    <div class="ptitle">Preview — 480p · Watermarked</div>
-
-    <div class="canvas-wrap">
-      <canvas id="c"></canvas>
-      <div class="res-tag">480p FREE</div>
-      <div class="wm-tag">watermark active</div>
-    </div>
-
-    <div class="upgrade-box">
-      <div class="upgrade-title">🔒 Unlock Counter Pro — Everything You're Missing</div>
-      <div class="limit-grid">
-        <div class="limit-item"><span class="x">✗</span>Watermark on exports</div>
-        <div class="limit-item"><span class="x">✗</span>480p resolution only</div>
-        <div class="limit-item"><span class="x">✗</span>No Hold Before / After</div>
-        <div class="limit-item"><span class="x">✗</span>No sound effects</div>
-        <div class="limit-item"><span class="x">✗</span>Ease Out style only</div>
-        <div class="limit-item"><span class="x">✗</span>Blue color only</div>
-        <div class="limit-item"><span class="x">✗</span>Black background only</div>
-        <div class="limit-item"><span class="x">✗</span>Basic glow style only</div>
-        <div class="limit-item"><span class="x">✗</span>One font only</div>
-        <div class="limit-item"><span class="x">✗</span>No progress bar control</div>
-      </div>
-      <div class="upgrade-cta">
-        <p>
-          Premium: <strong style="color:#fff;">1080p &amp; 4K</strong> ·
-          <strong style="color:#fff;">5 animation styles</strong> ·
-          <strong style="color:#fff;">5 visual styles incl. Odometer Flip</strong> ·
-          <strong style="color:#fff;">3 sound effects</strong> ·
-          <strong style="color:#fff;">Transparent BG</strong> ·
-          <strong style="color:#fff;">No watermark</strong>
-        </p>
-        <button class="btn-upgrade" onclick="window.open('https://whop.com/joined/b-roll-engine/products/counter-pro/','_blank')">
-          Get Counter Pro — $17 →
-        </button>
+    <div class="grid2">
+      <div class="field"><label>Duration (seconds)</label><input type="number" id="duration" value="3" min="1" max="120"></div>
+      <div class="field"><label>Frame Rate</label>
+        <select id="fps">
+          <option value="24">24 fps &mdash; Cinematic</option>
+          <option value="30" selected>30 fps &mdash; Standard</option>
+          <option value="60">60 fps &mdash; Smooth</option>
+        </select>
       </div>
     </div>
+    <div class="grid2">
+      <div class="field"><label>Hold Before (sec)</label><input type="number" id="preHold" value="1" min="0" max="120" step="0.5"></div>
+      <div class="field"><label>Hold After (sec)</label><input type="number" id="postHold" value="2" min="0" max="120" step="0.5"></div>
+    </div>
+
+    <div class="sec">Animation Style</div>
+    <div class="chips" id="styleChips">
+      <div class="chip on" data-val="easeOut">Ease Out</div>
+      <div class="chip" data-val="linear">Linear</div>
+      <div class="chip locked">Bounce<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">Spring<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">Dramatic Pause<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">Expo Rush<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">Anticipate<span class="pro-tag">PRO</span></div>
+    </div>
+
+    <div class="sec">Sound Effects</div>
+    <div class="sound-card">
+      <div class="sound-card-title">Choose a Sound Effect</div>
+      <div class="chips" id="soundChips">
+        <div class="chip on" data-val="tick">&#127925; Ticking Counter</div>
+        <div class="chip locked">&#128181; Money Counter Machine<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">&#127902; Cinematic Riser<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">&#128223; Digital Beep<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">&#129689; Arcade Coin<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">&#129763; Bubble Pop<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">&#128147; Deep Pulse<span class="pro-tag">PRO</span></div>
+      </div>
+      <div class="sound-or"><span>OR</span></div>
+      <div class="chips"><div class="chip" id="muteChip" onclick="selectSound('none')">&#128263; No Sound &nbsp;<span style="font-size:.64rem;color:var(--muted);">&mdash; add your own in editor</span></div></div>
+      <div id="soundIndicator" style="font-size:.7rem;color:var(--accent);margin:.65rem 0 0;">&#9654; Active: Ticking Counter</div>
+      <div id="volSection">
+        <div class="vol-row">
+          <label>Volume</label>
+          <div class="range-row" style="flex:1;"><input type="range" id="volume" min="0" max="1" step="0.05" value="0.6"><span class="range-val" id="volLabel">60%</span></div>
+        </div>
+        <button class="btn btn-outline" style="margin-top:.75rem;margin-bottom:0;font-size:.78rem;padding:.45rem;" onclick="testSound()">&#9654; Test Sound</button>
+      </div>
+    </div>
+
+    <div class="sec">Typography</div>
+    <div class="chips" id="fontChips">
+      <div class="chip on" data-val="'Bebas Neue'">Bebas Neue</div>
+      <div class="chip" data-val="monospace">Monospace</div>
+      <div class="chip locked">Orbitron<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">Playfair<span class="pro-tag">PRO</span></div>
+    </div>
+
+    <div class="sec">Number Style</div>
+    <div class="chips" id="numStyleChips">
+      <div class="chip on" data-val="glow">&#10022; Glow</div>
+      <div class="chip" data-val="3d">&#11035; 3D Depth</div>
+      <div class="chip" data-val="shadow">&#9672; Drop Shadow</div>
+      <div class="chip locked">&#9889; Neon<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#9881; Barrel Odometer<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#127920; Slot Reel<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#128290; Split-Flap<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#128459; 7-Segment<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#9646; LED Matrix<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#9711; Progress Ring<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#128520; Chrome<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#127942; Gold Foil<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#127752; Holographic<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#9889; Glitch<span class="pro-tag">PRO</span></div>
+      <div class="chip locked">&#128293; Fire<span class="pro-tag">PRO</span></div>
+    </div>
+    <div class="grid2" style="margin-top:.4rem;">
+      <div class="field"><label>Font Size (px)</label><input type="number" id="fontSize" value="88" min="30" max="260"></div>
+      <div class="field"><label>Glow Intensity</label><div class="range-row" style="margin-top:.3rem;"><input type="range" id="glow" min="0" max="70" value="30"><span class="range-val" id="glowLabel">30</span></div></div>
+    </div>
+
+    <div class="sec">Progress Bar <span class="pro-tag" style="margin-left:0;">PRO</span></div>
+    <div class="locked-note">A bar that fills in sync with the count &mdash; position, thickness and side-margin controls.</div>
+
+    <div class="sec">Background</div>
+    <div class="chips" id="bgChips" style="margin-bottom:.9rem;">
+      <div class="chip on" data-val="solid">Solid</div>
+      <div class="chip" data-val="transparent">Transparent</div>
+      <div class="chip" data-val="gradient">Gradient</div>
+    </div>
+    <div class="sec">Colors</div>
+    <div class="grid2">
+      <div class="field"><label>Background Color</label><input type="color" id="bgColor" value="#000000"></div>
+      <div class="field"><label>Text Color</label><input type="color" id="fgColor" value="#00a8ff"></div>
+    </div>
+    <button class="btn btn-primary" onclick="startPreview()">&#9654; &nbsp;Preview Animation</button>
   </div>
 
+  <div class="preview-panel">
+    <div class="panel">
+      <div class="panel-title">Resolution</div>
+      <div class="chips" id="resChips">
+        <div class="chip" data-w="1280" data-h="720">720p</div>
+        <div class="chip on-g" data-w="1920" data-h="1080">1080p HD</div>
+        <div class="chip locked">4K UHD<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">1:1 Square<span class="pro-tag">PRO</span></div>
+        <div class="chip locked">9:16 Vertical<span class="pro-tag">PRO</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Preview &nbsp;&middot;&nbsp; No Watermark</div>
+      <button class="btn btn-primary" onclick="startPreview()" style="width:100%;margin-bottom:.8rem;">&#9654; &nbsp;Play Preview</button>
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="mainCanvas"></canvas>
+        <div class="badge-nowm">&#10003; NO WATERMARK</div>
+      </div>
+      <div class="exp-row" style="margin-top:.9rem;">
+        <button class="btn btn-outline" id="btnMP4" onclick="exportVideo('mp4')">&#8595; &nbsp;Export MP4</button>
+        <button class="btn btn-outline" id="btnWebM" onclick="exportVideo('webm')">&#8595; &nbsp;Export WebM</button>
+      </div>
+      <div class="locked-note" style="margin-top:.35rem;">PNG Sequence + WAV export (works in every editor) <span class="pro-tag">PRO</span></div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:.35rem;line-height:1.6;">&#10003; Audio and video merged automatically &nbsp;&middot;&nbsp; Always click Preview once before exporting</div>
+      <div class="prog-wrap" id="progWrap">
+        <div class="prog-bg"><div class="prog-fill" id="progFill"></div></div>
+        <div class="prog-lbl" id="progLabel">Rendering&hellip;</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Celebration Effect <span class="pro-tag">PRO</span></div>
+      <div class="locked-note">Confetti Burst or Fireworks fire automatically when the count lands, with an intensity control &mdash; works with all 15 Pro styles.</div>
+    </div>
+    <div class="panel">
+      <div class="tip">
+        <strong>Tips for best results</strong><br>
+        Always click <strong>Preview</strong> once before exporting &mdash; this activates audio.<br>
+        <strong>Transparent</strong> BG + WebM = alpha overlay in DaVinci, Premiere &amp; Figma.<br>
+        For Canva / CapCut use a solid or gradient background.<br>
+        <strong>Countdown</strong> &mdash; set End below Start (e.g. 10 &rarr; 0) for launches &amp; timers.<br>
+        <strong>Glow</strong> at high intensity reads best over dark footage.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel upgrade">
+  <div class="panel-title"><span>&#9733; Everything in Pro</span></div>
+  <div class="up-list">
+    <strong>12 more number styles</strong> &mdash; Gold Foil, Chrome, Neon, Fire, Holographic, Glitch, Barrel Odometer, Slot Reel, Split-Flap, 7-Segment, LED Matrix, Progress Ring &nbsp;&middot;&nbsp;
+    <strong>30 one-click presets</strong> &nbsp;&middot;&nbsp; <strong>5 cinematic easings</strong> including Dramatic Pause &nbsp;&middot;&nbsp;
+    <strong>6 more sounds</strong> incl. Money Counter &amp; Cinematic Riser &nbsp;&middot;&nbsp; <strong>Confetti &amp; Fireworks</strong> &nbsp;&middot;&nbsp;
+    <strong>Synced progress bar</strong> &nbsp;&middot;&nbsp; <strong>4K, Square &amp; Vertical</strong> &nbsp;&middot;&nbsp; <strong>PNG Sequence + WAV</strong>
+  </div>
+  <a class="btn-gold" href="https://whop.com/joined/b-roll-engine/products/counter-pro/" id="proLink">Get the Pro version &rarr;</a>
+</div>
 </div>
 
 <script>
-var _c=document.getElementById('c'),_x=_c.getContext('2d');
-var _W=854,_H=480,_af=null;
-_c.width=_W;_c.height=_H;
+var S={style:'easeOut',font:"'Bebas Neue'",bgMode:'solid',sound:'tick',expW:1920,expH:1080,numStyle:'glow'};
+var canvas,ctx,animReq=null,audioCtx=null;
 
-function _fmt(n){
-  var pr=document.getElementById('p').value||'';
-  var sx=document.getElementById('x').value||'';
-  return pr+Math.round(n).toLocaleString()+sx;
-}
-function _ease(t){return 1-Math.pow(1-t,3);}
-
-// Watermark is structurally embedded in the same draw call as the number.
-// Removing watermark lines corrupts the shadow/restore state.
-function _draw(v,t){
-  var w=_W,h=_H;
-  _x.fillStyle='#000';_x.fillRect(0,0,w,h);
-  _x.strokeStyle='rgba(0,168,255,0.04)';_x.lineWidth=1;
-  for(var gx=0;gx<w;gx+=53){_x.beginPath();_x.moveTo(gx,0);_x.lineTo(gx,h);_x.stroke();}
-  for(var gy=0;gy<h;gy+=53){_x.beginPath();_x.moveTo(0,gy);_x.lineTo(w,gy);_x.stroke();}
-  var bw=(w*0.82)*t,bx=w*0.09,by=h-10;
-  _x.fillStyle='rgba(0,168,255,0.1)';_x.fillRect(bx,by,w*0.82,4);
-  _x.fillStyle='#00a8ff';_x.fillRect(bx,by,bw,4);
-  _x.save();
-  _x.font='bold 82px "Bebas Neue",sans-serif';
-  _x.textAlign='center';_x.textBaseline='middle';
-  _x.shadowColor='#00a8ff';_x.shadowBlur=28*t;
-  _x.fillStyle='#00a8ff';
-  _x.fillText(_fmt(v),w/2,h/2);
-  _x.shadowBlur=0;
-  // Watermark — same save/restore block as number; removing breaks shadow state
-  _x.font='500 12px "DM Sans",sans-serif';
-  _x.fillStyle='rgba(0,168,255,0.5)';
-  _x.fillText('B-ROLL ENGINE \u00b7 brollengine.com',w/2,h-20);
-  _x.font='400 10px "DM Sans",sans-serif';
-  _x.fillStyle='rgba(255,255,255,0.1)';
-  _x.fillText('FREE VERSION \u2014 UPGRADE FOR NO WATERMARK + SOUND + 4K',w/2,18);
-  _x.restore();
+/* ── FREE LIMITS — enforced in code, not just in the UI ── */
+var FREE={
+  styles:{easeOut:1,linear:1},
+  numStyles:{glow:1,'3d':1,shadow:1},
+  fonts:{"'Bebas Neue'":1,monospace:1},
+  sounds:{tick:1,none:1},
+  res:[[1280,720],[1920,1080]]
+};
+function enforceFree(){
+  if(!FREE.styles[S.style])S.style='easeOut';
+  if(!FREE.numStyles[S.numStyle])S.numStyle='glow';
+  if(!FREE.fonts[S.font])S.font="'Bebas Neue'";
+  if(!FREE.sounds[S.sound])S.sound='tick';
+  var ok=false;
+  for(var i=0;i<FREE.res.length;i++)if(FREE.res[i][0]===S.expW&&FREE.res[i][1]===S.expH)ok=true;
+  if(!ok){S.expW=1920;S.expH=1080;}
 }
 
-function go(){
-  if(_af)cancelAnimationFrame(_af);
-  var s=parseFloat(document.getElementById('s').value)||0;
-  var e=parseFloat(document.getElementById('e').value)||1e6;
-  var dur=(parseFloat(document.getElementById('d').value)||3)*1000;
-  var t0=performance.now();
+function initTool(){
+  canvas=document.getElementById('mainCanvas');
+  ctx=canvas.getContext('2d',{willReadFrequently:true});
+  canvas.width=S.expW;canvas.height=S.expH;
+  wireUI();updateDir();drawFrame(0,0,S.expW,S.expH);
+}
+
+var Ease={
+  easeOut:function(t){return 1-Math.pow(1-t,3);},
+  linear:function(t){return t;}
+};
+
+function getLiveCtx(){
+  if(!audioCtx||audioCtx.state==='closed')audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  return audioCtx;
+}
+function primeAudio(){
+  var c=getLiveCtx();var buf=c.createBuffer(1,1,c.sampleRate);var src=c.createBufferSource();
+  src.buffer=buf;src.connect(c.destination);src.start(0);return c;
+}
+function playTickAt(actx,dest,when){
+  var t=when!=null?when:actx.currentTime;
+  var bl=Math.round(actx.sampleRate*.018);var buf=actx.createBuffer(1,bl,actx.sampleRate);
+  var d=buf.getChannelData(0);for(var i=0;i<bl;i++)d[i]=(Math.random()*2-1);
+  var ns=actx.createBufferSource();ns.buffer=buf;
+  var ng=actx.createGain();ng.gain.setValueAtTime(.28,t);ng.gain.exponentialRampToValueAtTime(.001,t+.018);
+  var nhp=actx.createBiquadFilter();nhp.type='highpass';nhp.frequency.value=1800;
+  ns.connect(nhp);nhp.connect(ng);ng.connect(dest);ns.start(t);
+  var sn=actx.createOscillator();sn.type='sine';
+  sn.frequency.setValueAtTime(1100,t);sn.frequency.exponentialRampToValueAtTime(600,t+.04);
+  var sg=actx.createGain();sg.gain.setValueAtTime(.18,t);sg.gain.exponentialRampToValueAtTime(.001,t+.04);
+  sn.connect(sg);sg.connect(dest);sn.start(t);sn.stop(t+.05);
+  var sb=actx.createOscillator();sb.type='sine';
+  sb.frequency.setValueAtTime(80,t);sb.frequency.exponentialRampToValueAtTime(40,t+.03);
+  var sbg=actx.createGain();sbg.gain.setValueAtTime(.22,t);sbg.gain.exponentialRampToValueAtTime(.001,t+.06);
+  sb.connect(sbg);sbg.connect(dest);sb.start(t);sb.stop(t+.08);
+}
+function playImpactAt(actx,dest,vol,when){
+  var t=when!=null?when:actx.currentTime;var v=vol||.8;
+  var o1=actx.createOscillator(),o2=actx.createOscillator(),en=actx.createGain();
+  o1.type='sine';o2.type='sine';
+  o1.frequency.setValueAtTime(90,t);o1.frequency.exponentialRampToValueAtTime(28,t+.6);
+  o2.frequency.setValueAtTime(180,t);o2.frequency.exponentialRampToValueAtTime(45,t+.5);
+  en.gain.setValueAtTime(v*.85,t);en.gain.exponentialRampToValueAtTime(.001,t+.9);
+  o1.connect(en);o2.connect(en);en.connect(dest);
+  o1.start(t);o2.start(t);o1.stop(t+1);o2.stop(t+1);
+}
+function _playStepSound(actx,dest,when){
+  if(S.sound==='tick')playTickAt(actx,dest,when);
+}
+function testSound(){
+  if(S.sound==='none')return;
+  var c=getLiveCtx();playTickAt(c,c.destination);
+}
+
+function fmtNum(n){
+  return(document.getElementById('prefix').value||'')+Math.round(n).toLocaleString()+(document.getElementById('suffix').value||'');
+}
+function hexShade(h,amt){
+  var r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);
+  r=Math.max(0,Math.min(255,Math.round(r*(1-amt))));
+  g=Math.max(0,Math.min(255,Math.round(g*(1-amt))));
+  b=Math.max(0,Math.min(255,Math.round(b*(1-amt))));
+  return 'rgb('+r+','+g+','+b+')';
+}
+function updateDir(){
+  var s=parseFloat(document.getElementById('startNum').value)||0;
+  var e=parseFloat(document.getElementById('endNum').value);
+  if(isNaN(e))e=1e6;
+  var ind=document.getElementById('dirInd');
+  if(!ind)return;
+  if(e<s){ind.textContent='\u25BC Counting Down';ind.style.color='var(--gold)';}
+  else{ind.textContent='\u25B2 Counting Up';ind.style.color='var(--green)';}
+}
+
+function drawFrame(value,progress,w,h){
+  var fg=document.getElementById('fgColor').value;
+  var bg=document.getElementById('bgColor').value;
+  var glow=parseInt(document.getElementById('glow').value)||0;
+  var fs=Math.round((parseInt(document.getElementById('fontSize').value)||88)*(w/960));
+  var numStyle=S.numStyle||'glow';
+
+  if(S.bgMode==='transparent')ctx.clearRect(0,0,w,h);
+  else if(S.bgMode==='gradient'){var gr=ctx.createLinearGradient(0,0,w,h);gr.addColorStop(0,bg);gr.addColorStop(1,hexShade(bg,.5));ctx.fillStyle=gr;ctx.fillRect(0,0,w,h);}
+  else{ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);}
+
+  if(S.bgMode!=='transparent'){
+    var gs=Math.round(w/20);ctx.strokeStyle=fg+'09';ctx.lineWidth=1;
+    for(var gx=0;gx<w;gx+=gs){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,h);ctx.stroke();}
+    for(var gy=0;gy<h;gy+=gs){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(w,gy);ctx.stroke();}
+  }
+
+  var text=fmtNum(value);
+  var cxm=w/2,cym=h/2;
+  ctx.save();
+  ctx.font='bold '+fs+'px '+S.font+',sans-serif';
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  if(numStyle==='3d'){
+    for(var ii=8;ii>=1;ii--){var off=ii*(fs*.012);ctx.fillStyle=hexShade(fg,.45+(ii*.055));ctx.fillText(text,cxm+off,cym+off);}
+    ctx.strokeStyle=hexShade(fg,.6);ctx.lineWidth=fs*.04;ctx.lineJoin='round';ctx.strokeText(text,cxm,cym);
+    ctx.fillStyle=fg;ctx.fillText(text,cxm,cym);
+    var shine=ctx.createLinearGradient(0,cym-fs*.6,0,cym+fs*.6);
+    shine.addColorStop(0,'rgba(255,255,255,0.22)');shine.addColorStop(.45,'rgba(255,255,255,0)');shine.addColorStop(1,'rgba(0,0,0,0.15)');
+    ctx.fillStyle=shine;ctx.fillText(text,cxm,cym);
+  }else if(numStyle==='shadow'){
+    ctx.shadowColor='rgba(0,0,0,0.7)';ctx.shadowBlur=fs*.18;ctx.shadowOffsetX=fs*.04;ctx.shadowOffsetY=fs*.04;
+    ctx.fillStyle=fg;ctx.fillText(text,cxm,cym);
+    ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
+    ctx.strokeStyle=hexShade(fg,.4);ctx.lineWidth=fs*.025;ctx.lineJoin='round';ctx.strokeText(text,cxm,cym);
+  }else{
+    if(glow>0){ctx.shadowColor=fg;ctx.shadowBlur=glow*(w/960)*progress;}
+    ctx.fillStyle=fg;ctx.fillText(text,cxm,cym);ctx.shadowBlur=0;
+  }
+  ctx.restore();
+}
+
+var lastTickVal=-1,lastTickMs=-1;
+function getTimings(){
+  return{pre:parseFloat(document.getElementById('preHold').value)||0,dur:parseFloat(document.getElementById('duration').value)||3,post:parseFloat(document.getElementById('postHold').value)||0};
+}
+
+function startPreview(){
+  enforceFree();
+  if(animReq)cancelAnimationFrame(animReq);
+  var startNum=parseFloat(document.getElementById('startNum').value)||0;
+  var end=parseFloat(document.getElementById('endNum').value);if(isNaN(end))end=1e6;
+  lastTickVal=Math.round(startNum);lastTickMs=-1;
+  canvas.width=S.expW;canvas.height=S.expH;
+  var wrap=document.getElementById('canvasWrap');
+  if(S.bgMode==='transparent')wrap.classList.add('checker');else wrap.classList.remove('checker');
+  var tm=getTimings();
+  var preMs=tm.pre*1000,durMs=tm.dur*1000,postMs=tm.post*1000,totalMs=preMs+durMs+postMs;
+  var t0=performance.now(),impactFired=false,lc=primeAudio();
   function loop(now){
-    var t=Math.min((now-t0)/dur,1),ea=_ease(t);
-    _draw(s+(e-s)*ea,ea);
-    if(t<1)_af=requestAnimationFrame(loop);
-    else _draw(e,1);
+    var el=now-t0,val,ea,phase;
+    if(el<preMs){phase='pre';val=startNum;ea=0;}
+    else if(el<preMs+durMs){phase='count';var t=Math.min((el-preMs)/durMs,1);ea=(Ease[S.style]||Ease.easeOut)(t);val=t>=1?end:Math.round(startNum+(end-startNum)*ea);}
+    else{phase='post';val=end;ea=1;}
+    drawFrame(val,ea,S.expW,S.expH);
+    if(phase==='count'&&S.sound!=='none'){
+      var ms=performance.now();
+      if(val!==lastTickVal&&(ms-lastTickMs)>12.5){lastTickVal=val;lastTickMs=ms;_playStepSound(lc,lc.destination,null);}
+    }
+    if(phase!=='pre'&&!impactFired&&el>=preMs+durMs){impactFired=true;if(S.sound!=='none')playImpactAt(lc,lc.destination,parseFloat(document.getElementById('volume').value)||.6);}
+    if(el<totalMs)animReq=requestAnimationFrame(loop);
+    else drawFrame(end,1,S.expW,S.expH);
   }
-  _af=requestAnimationFrame(loop);
+  animReq=requestAnimationFrame(loop);
 }
 
-function dl(){
-  if(!window.MediaRecorder){
-    alert('Export requires Chrome, Edge, or Firefox.');
-    return;
-  }
-  if(_af)cancelAnimationFrame(_af);
-  var s=parseFloat(document.getElementById('s').value)||0;
-  var e=parseFloat(document.getElementById('e').value)||1e6;
-  var dur=parseFloat(document.getElementById('d').value)||3;
-  var fps=30,total=Math.round(dur*fps),fi=0;
-  var mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';
-  var stream=_c.captureStream(fps);
-  var rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:2000000});
-  var chunks=[];
-  rec.ondataavailable=function(ev){if(ev.data.size>0)chunks.push(ev.data);};
-  rec.onstop=function(){
-    var blob=new Blob(chunks,{type:mime});
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=url;a.download='broll-engine-counter-FREE-480p.webm';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+function fixWebMDuration(blob,durationSec,callback){
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var buf=new Uint8Array(e.target.result);
+    for(var i=0;i<buf.length-12;i++){
+      if(buf[i]===0x44&&buf[i+1]===0x89){
+        var view=new DataView(buf.buffer);
+        if(buf[i+2]===0x88){view.setFloat64(i+3,durationSec*1000,false);break;}
+        else if(buf[i+2]===0x84){view.setFloat32(i+3,durationSec*1000,false);break;}
+      }
+    }
+    callback(new Blob([buf],{type:blob.type}));
   };
-  rec.start();
-  function rf(){
-    if(fi>=total){rec.stop();return;}
-    var t=fi/(total-1||1),ea=_ease(t);
-    _draw(s+(e-s)*ea,ea);
-    fi++;requestAnimationFrame(rf);
-  }
-  rf();
+  reader.readAsArrayBuffer(blob);
 }
 
-_draw(0,0);
+function unpremultiplyAlpha(){
+  var w=canvas.width,h=canvas.height;
+  var imgData=ctx.getImageData(0,0,w,h),data=imgData.data;
+  for(var i=0;i<data.length;i+=4){var a=data[i+3];if(a>0&&a<255){data[i]=Math.min(255,(data[i]*255)/a);data[i+1]=Math.min(255,(data[i+1]*255)/a);data[i+2]=Math.min(255,(data[i+2]*255)/a);}}
+  ctx.putImageData(imgData,0,0);
+}
+
+async function exportVideo(type){
+  enforceFree();
+  if(animReq)cancelAnimationFrame(animReq);
+  if(!window.MediaRecorder){alert('Export requires Chrome, Edge, or Firefox.');return;}
+  var startNum=parseFloat(document.getElementById('startNum').value)||0;
+  var end=parseFloat(document.getElementById('endNum').value);if(isNaN(end))end=1e6;
+
+  var vol=parseFloat(document.getElementById('volume').value)||.6;
+  var tm=getTimings();
+  var preMs=tm.pre*1000,durMs=tm.dur*1000,postMs=tm.post*1000,totalMs=preMs+durMs+postMs;
+
+  canvas.width=S.expW;canvas.height=S.expH;
+  drawFrame(startNum,0,S.expW,S.expH);
+  if(S.bgMode==='transparent')unpremultiplyAlpha();
+
+  document.getElementById('progWrap').style.display='block';
+  document.getElementById('btnMP4').disabled=true;
+  document.getElementById('btnWebM').disabled=true;
+
+  var soundOn=(S.sound!=='none');
+  var mime,ext;
+  if(type==='mp4'&&MediaRecorder.isTypeSupported('video/mp4;codecs=avc1.42E01E,mp4a.40.2')){
+    mime=soundOn?'video/mp4;codecs=avc1.42E01E,mp4a.40.2':'video/mp4;codecs=avc1.42E01E';ext='mp4';
+  }else{
+    if(soundOn){if(MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus'))mime='video/webm;codecs=vp9,opus';else if(MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus'))mime='video/webm;codecs=vp8,opus';else mime='video/webm';}
+    else{if(MediaRecorder.isTypeSupported('video/webm;codecs=vp9'))mime='video/webm;codecs=vp9';else if(MediaRecorder.isTypeSupported('video/webm;codecs=vp8'))mime='video/webm;codecs=vp8';else mime='video/webm';}
+    ext='webm';if(type==='mp4')alert('MP4 not supported in this browser. Saving as WebM instead.');
+  }
+
+  var bps=S.expW>=1920?24000000:8000000;
+  var expActx=null,expDest=null,audioTracks=[];
+  if(soundOn){expActx=new(window.AudioContext||window.webkitAudioContext)();await expActx.resume();expDest=expActx.createMediaStreamDestination();audioTracks=expDest.stream.getAudioTracks();}
+
+  var videoStream=canvas.captureStream(0),videoTrack=videoStream.getVideoTracks()[0];
+  var combined=new MediaStream([...videoStream.getVideoTracks(),...audioTracks]);
+  var recorder=new MediaRecorder(combined,{mimeType:mime,videoBitsPerSecond:bps,audioBitsPerSecond:soundOn?192000:undefined});
+
+  if(S.bgMode==='transparent'){
+    if(ext==='mp4'){alert('Transparent background requires WebM. Switching to WebM.');mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';ext='webm';recorder=new MediaRecorder(combined,{mimeType:mime,videoBitsPerSecond:bps,audioBitsPerSecond:soundOn?192000:undefined});}
+    if('alpha' in videoTrack)videoTrack.alpha='keep';
+  }
+
+  var chunks=[];
+  recorder.ondataavailable=function(e){if(e.data.size>0)chunks.push(e.data);};
+  recorder.onstop=function(){
+    var rawBlob=new Blob(chunks,{type:mime});
+    if(ext==='webm'){fixWebMDuration(rawBlob,totalMs/1000,function(fb){_dl(fb,ext);});}
+    else _dl(rawBlob,ext);
+  };
+  function _dl(blob,ext2){
+    var url=URL.createObjectURL(blob);var a=document.createElement('a');
+    a.href=url;a.download='broll-engine-counter-free-'+S.expW+'x'+S.expH+'.'+ext2;
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url);},15000);
+    document.getElementById('progWrap').style.display='none';
+    document.getElementById('btnMP4').disabled=false;document.getElementById('btnWebM').disabled=false;
+    document.getElementById('progFill').style.width='0%';
+    document.getElementById('progLabel').textContent='Export complete — check your downloads';
+    if(expActx)setTimeout(function(){expActx.close();},2000);
+  }
+
+  var done=false,t0=null,audioStartRef=null;
+  function scheduleAllAudio(){
+    if(!soundOn)return;
+    var tmpLastTick=Math.round(startNum),tmpImpact=false;
+    for(var ms=0;ms<=totalMs;ms+=16){
+      var val,ea,phase;
+      if(ms<preMs){phase='pre';val=startNum;ea=0;}
+      else if(ms<preMs+durMs){phase='count';var t=Math.min((ms-preMs)/durMs,1);ea=(Ease[S.style]||Ease.easeOut)(t);val=(t>=1)?end:Math.round(startNum+(end-startNum)*ea);}
+      else{phase='post';val=end;ea=1;}
+      if(phase==='count'&&val!==tmpLastTick){tmpLastTick=val;var when=audioStartRef+(ms/1000);_playStepSound(expActx,expDest,when);}
+      if(!tmpImpact&&ms>=preMs+durMs){tmpImpact=true;playImpactAt(expActx,expDest,vol,audioStartRef+((preMs+durMs)/1000));}
+    }
+  }
+
+  recorder.start(50);
+  requestAnimationFrame(function(){
+    t0=performance.now();if(soundOn)audioStartRef=expActx.currentTime;scheduleAllAudio();
+    function exportLoop(now){
+      if(done)return;
+      var el=now-t0,val,ea;
+      if(el<preMs){val=startNum;ea=0;}
+      else if(el<preMs+durMs){var t=Math.min((el-preMs)/durMs,1);ea=(Ease[S.style]||Ease.easeOut)(t);val=(t>=1)?end:Math.round(startNum+(end-startNum)*ea);}
+      else{val=end;ea=1;}
+      drawFrame(val,ea,S.expW,S.expH);
+      if(S.bgMode==='transparent')unpremultiplyAlpha();
+      videoTrack.requestFrame();
+      var pct=Math.min(99,Math.round((el/totalMs)*100));
+      document.getElementById('progFill').style.width=pct+'%';
+      document.getElementById('progLabel').textContent='Exporting\u2026 '+pct+'% ('+Math.round(el/1000)+'s\u00a0/\u00a0'+Math.round(totalMs/1000)+'s)';
+      if(el>=totalMs){
+        drawFrame(end,1,S.expW,S.expH);
+        if(S.bgMode==='transparent')unpremultiplyAlpha();
+        videoTrack.requestFrame();
+        document.getElementById('progFill').style.width='100%';
+        done=true;
+        document.getElementById('progLabel').textContent='Finalising…';
+        setTimeout(function(){recorder.stop();},300);
+        return;
+      }
+      animReq=requestAnimationFrame(exportLoop);
+    }
+    animReq=requestAnimationFrame(exportLoop);
+  });
+}
+
+function selectSound(val){
+  if(!FREE.sounds[val])val='tick';
+  document.getElementById('soundChips').querySelectorAll('.chip:not(.locked)').forEach(function(c){c.classList.remove('on');});
+  document.getElementById('muteChip').classList.remove('on');S.sound=val;
+  var ind=document.getElementById('soundIndicator'),vs=document.getElementById('volSection');
+  if(val==='none'){document.getElementById('muteChip').classList.add('on');ind.style.color='var(--muted)';ind.textContent='\uD83D\uDD07 Sound off';vs.style.display='none';}
+  else{document.getElementById('soundChips').querySelectorAll('.chip:not(.locked)').forEach(function(c){if(c.dataset.val===val)c.classList.add('on');});ind.style.color='var(--accent)';ind.textContent='\u25B6 Active: Ticking Counter';vs.style.display='block';}
+}
+
+function wireUI(){
+  function chips(id,key,cb){
+    var el=document.getElementById(id);if(!el)return;
+    el.querySelectorAll('.chip:not(.locked)').forEach(function(c){
+      c.addEventListener('click',function(){
+        el.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on','on-g');});
+        this.classList.add('on');S[key]=this.dataset.val;if(cb)cb(this.dataset.val);
+      });
+    });
+  }
+  chips('styleChips','style');
+  chips('fontChips','font',function(){if(!animReq)drawFrame(parseFloat(document.getElementById('startNum').value)||0,0,S.expW,S.expH);});
+  chips('numStyleChips','numStyle',function(){if(!animReq){var sv=parseFloat(document.getElementById('startNum').value)||0;drawFrame(sv,0,S.expW,S.expH);}});
+  document.getElementById('soundChips').querySelectorAll('.chip:not(.locked)').forEach(function(c){c.addEventListener('click',function(){selectSound(this.dataset.val);});});
+  document.getElementById('resChips').querySelectorAll('.chip:not(.locked)').forEach(function(c){c.addEventListener('click',function(){document.getElementById('resChips').querySelectorAll('.chip').forEach(function(x){x.classList.remove('on','on-g');});this.classList.add('on-g');S.expW=parseInt(this.dataset.w);S.expH=parseInt(this.dataset.h);canvas.width=S.expW;canvas.height=S.expH;drawFrame(0,0,S.expW,S.expH);});});
+  document.getElementById('bgChips').querySelectorAll('.chip:not(.locked)').forEach(function(c){c.addEventListener('click',function(){document.getElementById('bgChips').querySelectorAll('.chip').forEach(function(x){x.classList.remove('on','on-g');});this.classList.add('on');S.bgMode=this.dataset.val;var w=document.getElementById('canvasWrap');if(S.bgMode==='transparent')w.classList.add('checker');else w.classList.remove('checker');if(!animReq)drawFrame(parseFloat(document.getElementById('startNum').value)||0,0,S.expW,S.expH);});});
+  document.getElementById('volume').addEventListener('input',function(){document.getElementById('volLabel').textContent=Math.round(this.value*100)+'%';});
+  document.getElementById('glow').addEventListener('input',function(){document.getElementById('glowLabel').textContent=this.value;});
+  ['startNum','endNum'].forEach(function(idn){var e=document.getElementById(idn);if(e)e.addEventListener('input',updateDir);});
+}
+
+initTool();
 </script>
 </body>
 </html>
